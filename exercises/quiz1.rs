@@ -13,10 +13,10 @@
 //
 // No hints this time ;)
 
-// I AM NOT DONE
-
 // Put your function here!
-// fn calculate_price_of_apples {
+fn calculate_price_of_apples(num_apples: u8) -> u8 {
+    num_apples * u8::pow(2, ((num_apples <= 40) as u32))
+}
 
 // Don't modify this function!
 #[test]

@@ -1,7 +1,7 @@
 // hashmaps3.rs
 //
 // A list of scores (one per line) of a soccer match is given. Each line is of
-// the form : "<team_1_name>,<team_2_name>,<team_1_goals>,<team_2_goals>"
+// the form : "<team_1_name>,<team_2_name>,<team_1_score>,<team_2_score>"
 // Example: England,France,4,2 (England scored 4 goals, France 2).
 //
 // You have to build a scores table containing the name of the team, goals the
@@ -14,9 +14,8 @@
 // Execute `rustlings hint hashmaps3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::collections::HashMap;
+use std::collections::hash_map::Entry;
 
 // A structure to store the goal details of a team.
 struct Team {
@@ -39,6 +38,15 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // will be the number of goals conceded from team_2, and similarly
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
+        scores.entry(team_1_name.to_string()).and_modify(|e| {
+            e.goals_scored += team_1_score;
+            e.goals_conceded += team_2_score;
+        }).or_insert(Team{goals_scored: team_1_score, goals_conceded: team_2_score});
+
+        scores.entry(team_2_name.to_string()).and_modify(|e| {
+            e.goals_scored += team_2_score;
+            e.goals_conceded += team_1_score;
+        }).or_insert(Team{goals_scored: team_2_score, goals_conceded: team_1_score});
     }
     scores
 }
