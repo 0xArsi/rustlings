@@ -60,10 +60,12 @@ fn main() {
     println!("reference count = {}", Rc::strong_count(&sun)); // 6 references
     jupiter.details();
 
+    // TODO
     let saturn = Planet::Saturn(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 7 references
     saturn.details();
 
+    // TODO
     let uranus = Planet::Uranus(Rc::clone(&sun));
     println!("reference count = {}", Rc::strong_count(&sun)); // 8 references
     uranus.details();
